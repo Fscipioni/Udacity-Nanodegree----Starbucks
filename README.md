@@ -5,8 +5,9 @@
 1. [Project Description](#description)
 2. [Installation and Libraries](#installation)
 3. [Files List](#files)
-4. [DataFrame files description](#df_files)
+4. [Data analysis results](#results)
 5. [External links](#links)
+6. [Acknowledgements](#acknowledgements)
 
 
 ## Project Description<a name = "description"></a>
@@ -47,40 +48,58 @@ The libraries used are are:
 ## Files List<a name = "files"></a>
 
 - Starbucks_Capstone_notebook.ipynb
+	The Jupiter notebook with the code
 - Starbucks_Capstone_notebook.html
+	The html version of the Jupiter notebook
 - README.md
+	The readme file
+- Data
+	directory containing the json files needed to run code, and described below
+	- profile.json
+		Rewards program users (17000 users x 5 fields)
 
-## DataFrame files description<a name = "df_files"></a>
+		- gender: (categorical) M, F, O, or null
+		- age: (numeric) missing value encoded as 118
+		- id: (string/hash)
+		- became_member_on: (date) format YYYYMMDD
+		- income: (numeric)
+	- portfolio.json
+		Offers sent during 30-day test period (10 offers x 6 fields)
+		- reward: (numeric) money awarded for the amount spent
+		- channels: (list) web, email, mobile, social
+		- difficulty: (numeric) money required to be spent to receive reward
+		- duration: (numeric) time for offer to be open, in days
+		- offer_type: (string) bogo, discount, informational
+		- id: (string/hash)
 
-profile.json
-Rewards program users (17000 users x 5 fields)
+	- transcript.json
+		Event log (306648 events x 4 fields
+		- person: (string/hash)
+		- event: (string) offer received, offer viewed, transaction, offer completed
+		- value: (dictionary) different values depending on event type
+			- offer id: (string/hash) not associated with any "transaction"
+			- amount: (numeric) money spent in "transaction"
+			- reward: (numeric) money gained from "offer completed"
+		- time: (numeric) hours after start of test
 
-- gender: (categorical) M, F, O, or null
-- age: (numeric) missing value encoded as 118
-- id: (string/hash)
-- became_member_on: (date) format YYYYMMDD
-- income: (numeric)
+## Data analysis results<a name = "results"></a>
 
-portfolio.json
-Offers sent during 30-day test period (10 offers x 6 fields)
+From the data analysis, I concluded that the demographic group best responding to the offers are:
 
-- reward: (numeric) money awarded for the amount spent
-- channels: (list) web, email, mobile, social
-- difficulty: (numeric) money required to be spent to receive reward
-- duration: (numeric) time for offer to be open, in days
-- offer_type: (string) bogo, discount, informational
-- id: (string/hash)
+	- Female,
+	- above 40 years old,
+	- with an income above 60k.
+	- The offers with the best balance between difficulty, duration, and reward have the highest change to be completed.
 
-transcript.json
-Event log (306648 events x 4 fields)
+From the modeling, I concluded that:
 
-- person: (string/hash)
-- event: (string) offer received, offer viewed, transaction, offer completed
-- value: (dictionary) different values depending on event type
-	- offer id: (string/hash) not associated with any "transaction"
-	- amount: (numeric) money spent in "transaction"
-	- reward: (numeric) money gained from "offer completed"
-- time: (numeric) hours after start of test
+	- The best model is the Support Vector Machines, if the parameters are left as default.
+	- The best model is the Random Forest Classifier, if the parameters are set after running the GridSearchCV function.
+	- The features mostly influencing an offer success are confirmed to be difficulty, duration, and reward.
+
+## Acknowledgements<a name = "acknowledgements"></a>
+
+I thank Udacity for the opportunity of analying such an interesting dataset, and Satrbucks for making this possible by sharing their data.
 
 ## External links<a name = "links"></a>
 
